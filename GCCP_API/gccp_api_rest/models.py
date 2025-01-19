@@ -7,6 +7,7 @@ class Contract(models.Model):
         auto_created=True,
         primary_key = True,
         unique = True,
+        max_length=20,
         default = ccp_uuid_generator,
         help_text = "ID autogerado do Contrato de Crédito Pessoal (CCP)"
     )
@@ -26,15 +27,15 @@ class Contract(models.Model):
         help_text = "Número de documento do tomador (CPF)"
     )
     country = models.CharField(
-        max_length = 100,
+        max_length = 20,
         help_text = "País do tomador"
     )
     state = models.CharField(
-        max_length = 100,
+        max_length = 20,
         help_text = "Estado do tomador"
     )
     city = models.CharField(
-        max_length = 100,
+        max_length = 20,
         help_text = "Cidade do tomador"
     )
     phone_number = models.CharField(
