@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.core.exceptions import BadRequest
 from django.db.models import Sum, Avg, Q
 from rest_framework import viewsets, status
