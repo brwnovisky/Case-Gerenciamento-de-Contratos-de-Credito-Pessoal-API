@@ -20,7 +20,7 @@ class Contract(models.Model):
     disbursed_amount = models.DecimalField(
         max_digits = 10,
         decimal_places = 2,
-        help_text = "Valor desembolsado"
+        help_text = "Valor desembolsado pela instituição credora"
     )
     document_number = models.CharField(
         max_length = 11,
