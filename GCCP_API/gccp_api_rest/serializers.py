@@ -66,7 +66,6 @@ class ContractSerializer(serializers.ModelSerializer):
         return value
 
     def validate_disbursed_amount(self, value):
-
         if self.partial and 'disbursed_amount' not in self.initial_data:
             return value
 
@@ -78,7 +77,6 @@ class ContractSerializer(serializers.ModelSerializer):
         if self.partial and 'interest_rate' not in self.initial_data:
             return value
 
-
         if value <= 0 or value > 100:
             raise ValidationError("Taxa de juros deve estar entre 0 e 100.")
         return value
@@ -87,8 +85,11 @@ class ContractSerializer(serializers.ModelSerializer):
         if self.partial and 'borrower_birth_date' not in self.initial_data:
             return value
 
-        age = (date.today() - value).days / 365.25
-        if age < 18:
+        YEAR_FACTOR = 365.25
+        MAJORITY_AGE = 18
+
+        age = (date.today() - value).days / YEAR_FACTOR
+        if age < MAJORITY_AGE:
             raise ValidationError("O tomador deve ter pelo menos 18 anos.")
         return value
 

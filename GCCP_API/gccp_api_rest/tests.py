@@ -226,8 +226,10 @@ class ContractsAPITest(APITestCase):
         self.assertEqual(response.data[0]['state'], "SP")
 
         response = self.client.get(f"{url}?issue_date=01/2025&state=INVALID")
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        response = self.client.get(f"{url}?issue_datX=01/2025&state=INVALID")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_update_contract(self):
         url = reverse('contract-contracts')
