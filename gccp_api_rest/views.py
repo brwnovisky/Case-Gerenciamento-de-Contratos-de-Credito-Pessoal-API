@@ -64,14 +64,16 @@ class ContractViewSet(viewsets.GenericViewSet):
 
         return self.get_queryset().filter(filters)
 
-    @action(detail = False, methods = ['post', 'get', 'put', 'delete'])
+    @action(detail = False, methods = ['get', 'post', 'put'])
     def contracts(self, request):
         handlers = {
             'GET': self._handle_contracts_get,
             'POST': self._handle_contracts_post,
             'PUT': self._handle_contracts_put,
-            'DELETE': self._handle_contracts_delete
         }
+
+        if request.method not in handlers:
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
         handler = handlers.get(request.method)
         return handler(request)
@@ -132,25 +134,13 @@ class ContractViewSet(viewsets.GenericViewSet):
         except Exception as e:
             raise ValidationError(f"Error updating contract: {str(e)}.")
 
-    def _handle_contracts_delete(self, request):
-        queryset = self._apply_filters(request)
-
-        if not request.query_params:
-            raise NotFound('Não há parâmetros fornecidos')
-
-        if not queryset.exists():
-            raise NotFound('Não há contratos com o parâmetros fornecidos')
-
-        data = self.get_serializer(queryset, many = True).data
-
-        try:
-            queryset.delete()
-            return Response(data, status = status.HTTP_200_OK)
-        except Exception as e:
-            raise ValidationError(f"Error deleting contracts: {str(e)}")
 
     @action(detail = False, methods = ['get'])
     def contracts_summary(self, request):
+
+        if request.method != 'GET':
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
         filtered_queryset = self._apply_filters(request)
 
         ids = filtered_queryset.values_list('id', flat = True)

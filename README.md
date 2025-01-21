@@ -16,8 +16,6 @@ O projeto visa atender aos requisitos demandados pelo [**test case**](doc/CASE_D
 - [**Pré-requisitos**](#pré-requisitos)
 - [**Instalação**](#instalação)
   - [**Como Instalar o Docker e Docker Compose**](#como-instalar-o-docker-e-docker-compose)
-  - [**Como Instalar o Python3**](#como-instalar-o-python3)
-  - [**Como Criar o arquivo .env**](#como-criar-o-arquivo-env) 
 - [**Construção e Execução**](#construção-e-execução)
 - [**GCCP-API**](#gccp-api)
   - [**Descrição da API**](#descrição-da-api)
@@ -35,9 +33,10 @@ O projeto visa atender aos requisitos demandados pelo [**test case**](doc/CASE_D
 
 ## Estrutura do Projeto
 
+- [**doc/**](doc/): Pasta com arquivos de documentação do projeto.
 - [**gccp_api_rest**](gccp_api_rest/): Pasta contendo a implementação do GCCP-API Rest app.
 - [**gccp_api_root**](gccp_api_rest/): Pasta raiz do Django project com o gerenciamento de apps e pacotes.
-- [**doc/**](doc/): Pasta com arquivos de documentação do projeto.
+- [**.env**](.env): Arquivo de exemplo para definição de variáveis de ambiente.
 - [**.gitignore**](.gitignore): Lista arquivos não considerados no versionamento do projeto.
 - [**Dockerfile**](Dockerfile): Definição do ambiente Docker.
 - [**LICENSE**](LICENSE): tipo de licença atribuída ao projeto.
@@ -53,8 +52,6 @@ O projeto visa atender aos requisitos demandados pelo [**test case**](doc/CASE_D
 	
 - **Docker** : instalação do repositório Docker como requisito para instalação do Docker Compose.
 - **Docker Compose** : instalação do repositório Docker Compose para construção e execução da imagem do projeto.
-- **Python3**: instalação da biblioteca Python em função da criação de Secret Keys.
-- **.env** : criação de um arquivo .env para armazenagem de variáveis de ambiente, vitais para funcionamento e integridade do projeto.
 
 ## Instalação
 
@@ -66,114 +63,27 @@ O projeto visa atender aos requisitos demandados pelo [**test case**](doc/CASE_D
     
     No linux, certifique-se de que o seu repositório de pacotes esteja atualizado:
     ```sh
-    sudo apt update
+      sudo apt update
 	```
 2.  **Instalar o Docker**
 
 	Instale o Docker e Docker Compose usando os seguintes comandos:	
 	```sh
-	sudo apt install docker.io -y
+    sudo apt install docker.io -y
     sudo apt install docker-compose-plugin -y
 	```
 3.  **Iniciar e Ativar o Docker**
 	
 	Inicie o serviço do Docker e ative-o para iniciar automaticamente na inicialização:
 	```sh
-	sudo systemctl enable --now docker
+    sudo systemctl enable --now docker
 	```
 4.  **Verificar a Instalação**
 	
 	Confirme as instalações:
 	```sh
-	docker --version
+    docker --version
     docker compose version
-    ```
-5. **Instalar Docker Compose**
-
-### Como Instalar o Python3
-
-1.  **Download do Python3**
-
-    Caso você esteja usando Windows ou macOS você deve baixar o instalador do Python no [**site oficial do Python3**](https://www.python.org/downloads/) e seguir as instruções da instalação. 
-    
-    No linux, certifique-se de que o seu repositório de pacotes esteja atualizado:
-2. 
-    ```sh
-    sudo apt update
-	```
-2.  **Instalar o Docker (Linux)**
-
-	Instale o Python3 usando o seguinte comando:	
-	```sh
-	sudo apt install python3
-	```
-3. **Verificar a Instalação**
-	
-	Confirme que o Python3 está em execução:
-	```sh
-	python3 --version
-    ```
-
-### Como Criar o arquivo .env
-
-1.  **Criar o arquivo .env**
-
-    Na pasta raiz do projeto, crie um arquivo com nome ".env". Se optar pelo terminal execute:
-    
-- Linux/macOS/WSL/Git Bash:
-  ```sh
-  touch .env
-  ```
-- Windows:
-  ```sh
-    type nul > .env
-  ```
-
-2.  **Editar o arquivo .env**
-
-	Com um editor de texto adicione as seguintes váriáveis de ambiente e valores como no exemplo abaixo:	
-	```sh
-    DEBUG=1
-    SECRET_KEY=my_secret_key_string
-    DJANGO_ALLOWED_HOSTS=0.0.0.0
-    DJANGO_RUN_TESTS=true
-    DJANGO_SUPERUSER_USERNAME=admin
-    DJANGO_SUPERUSER_PASSWORD=admin
-    DJANGO_SUPERUSER_EMAIL=admin@admin.com
-
-    POSTGRES_DB=my_db
-    POSTGRES_USER=my_db_user
-    POSTGRES_PASSWORD=my_db_user_password
-    POSTGRES_HOST=db
-    POSTGRES_PORT=5432
-	```
-3.  **Definir valores de variáveis de contexto**
-	
-	Os valores das seguintes variáveis devem ser definidas conforme contexto do usuário:
-    
-- ```DEBUG```: Ativação do modo Debug. Defina ```1``` para ativar e ```0``` para desativar.
-- ```DJANGO_RUN_TESTS```: Ativação da execução de testes unitários do Django Tests. Habilite com ```true``` e desabilite com ```false```.
-- ```DJANGO_SUPERUSER_USERNAME```: Definição do nome do login do Django Superuser Admin.
-- ```DJANGO_SUPERUSER_PASSWORD```: Definição da senha para login do Django Superuser Admin.
-- ```POSTGRES_DB```: Nome do banco de dados do projeto.
-- ```POSTGRES_USER```: Nome do usuário gestor do banco de dados do projeto.
-- ```POSTGRES_PASSWORD```: Senha do usuário gestor do banco de dados do projeto.
-- ```SECRET_KEY```: String usada para assinatura criptográfica, sendo assim importantíssima para segurança e integridade do projeto. Defina conforme próxima instrução:
-
-4. **Gerar Secret Key**
-
-    Abra o terminal do seu sistema operacional e execute:
-    ```sh
-      python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-    ```
-   Este comando gera a Secret Key em formato de string e retorna no terminal.
-
-
-5. **Atribuir a Secret Key a variável ```SECRET_KEY```**
-
-    Copie a string do comando anterior e, ao abrir seu arquivo .env, atribua-a à variável ```SECRET_KEY```, conforme exemplo abaixo:
-    ```sh
-    SECRET_KEY=my_secret_key_string
     ```
 
 ## Construção e Execução
@@ -406,64 +316,6 @@ O GCCP-API gerencia dados de contrato de crédito pessoal, como os dados do cont
           ]
          ```
 
-  #### Exclusão de dados:
-  - Método de requisição `DELETE`: 
-    - Exemplo exclusão de dados via consulta URL com parâmetros:
-
-      `http://0.0.0.0:8000/api/contracts/?state=MG&issue_date=2025-01-15`
-    - Exemplo de corpo de Resposta (200 - Ok):
-      ```json
-        [
-            {
-              "id": "CCP-AC8B0490",
-              "issue_date": "2025-01-15",
-              "borrower_birth_date": "1995-01-01",
-              "disbursed_amount": "12000.00",
-              "document_number": "11122233344",
-              "country": "Brasil",
-              "state": "MG",
-              "city": "Belo Horizonte",
-              "phone_number": "31999999999",
-              "interest_rate": "1.80",
-              "installments": [
-                  {
-                      "installment_number": 1,
-                      "amount": "15000.00",
-                      "due_date": "2025-04-15"
-                  },
-                  {
-                      "installment_number": 2,
-                      "amount": "15000.00",
-                      "due_date": "2025-05-15"
-                  }
-              ]
-            },
-            {
-              "id": "CCP-0975AEFF",
-              "issue_date": "2025-01-15",
-              "borrower_birth_date": "1997-02-01",
-              "disbursed_amount": "45000.00",
-              "document_number": "21122233344",
-              "country": "Brasil",
-              "state": "MG",
-              "city": "Betim",
-              "phone_number": "31999999999",
-              "interest_rate": "1.50",
-              "installments": [
-                  {
-                      "installment_number": 1,
-                      "amount": "27000.00",
-                      "due_date": "2025-04-12"
-                  },
-                  {
-                      "installment_number": 2,
-                      "amount": "27000.00",
-                      "due_date": "2025-05-13"
-                  }
-              ]
-            }
-        ]
-      ```
 - ### contracts_summary/
     
   **Recursos de Recuperação de dados:**

@@ -282,22 +282,3 @@ class ContractsAPITest(APITestCase):
         self.assertEqual(response.data['total_contracts'], 2)
         self.assertEqual(Decimal(response.data['total_disbursed']), Decimal('30000.00'))
         self.assertEqual(Decimal(response.data['total_receivable']), Decimal('30000.00'))
-
-    def test_delete_contract(self):
-        url = reverse('contract-contracts')
-
-        self.assertTrue(Contract.objects.filter(id = self.contract1Id).exists())
-        self.assertTrue(Installment.objects.filter(contract_id = self.contract1Id).exists())
-
-        response = self.client.delete(f"{url}?id={self.contract1Id}")
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        self.assertFalse(Contract.objects.filter(id = self.contract1Id).exists())
-        self.assertFalse(Installment.objects.filter(contract_id = self.contract1Id).exists())
-
-        non_existent_id = ccp_uuid_generator()
-        url = reverse('contract-contracts')
-        response = self.client.delete(f"{url}?id={non_existent_id}")
-
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
