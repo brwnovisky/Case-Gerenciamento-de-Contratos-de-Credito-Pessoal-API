@@ -25,7 +25,7 @@ class ContractModelTest(TestCase):
             interest_rate = 1.5
         )
         self.assertTrue(isinstance(contract, Contract))
-        self.assertEqual(str(contract.id), self.contract3Id)  # Assuming you have a __str__ method
+        self.assertEqual(str(contract.id), self.contract3Id)
 
 class InstallmentModelTest(TestCase):
     def setUp(self):
