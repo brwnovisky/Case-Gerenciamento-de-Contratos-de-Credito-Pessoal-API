@@ -22,8 +22,8 @@ O projeto visa atender aos requisitos demandados pelo [**test case**](doc/CASE_D
   - [**Diagrama de relação de entidade das tabelas**](#diagrama-de-relação-de-entidade-das-tabelas)
   - [**Endpoints Suportados pela API**](#endpoints-suportados-pela-api)
   - [**Utilizando Endpoints**](#utilizando-endpoints)
-    - [**contracts/**](#contracts)
-    - [**contracts_summary/**](#contracts_summary)
+    - [**/contracts**](#contracts)
+    - [**/contracts_summary**](#contracts_summary)
   - [**Recursos de Documentação da API**](#recursos-de-documentação-da-api)
     - [**Django Superuser Admin**](#django-super-user)
     - [**Swagger**](#swagger)
@@ -148,11 +148,11 @@ O GCCP-API gerencia dados de contrato de crédito pessoal, como os dados do cont
 - http://0.0.0.0:8000/api/contracts_summary - **Interface para resumo de dados consolidados de Contratos de Crédito Pessoal.**
 - [http://0.0.0.0:8000/api/swagger](#swagger) - **Documentação do Swagger**
 - http://0.0.0.0:8000/api/redoc - **Documentação de Rotas do Swagger**
-- [http://0.0.0.0:8000/admin/](#django-super-user) - **Django Superuser Admin**
+- [http://0.0.0.0:8000/admin](#django-super-user) - **Django Superuser Admin**
 
 ### Utilizando Endpoints
 
-- ### contracts/
+- ### /contracts
     
   **Recursos de Entrada de dados:**
   - Criação e atualização de dados via corpo da requisição.
@@ -316,7 +316,7 @@ O GCCP-API gerencia dados de contrato de crédito pessoal, como os dados do cont
           ]
          ```
 
-- ### contracts_summary/
+- ### /contracts_summary
     
   **Recursos de Recuperação de dados:**
     - Suporte a parâmetros de consulta de dados para resumo de dados consolidados. 
