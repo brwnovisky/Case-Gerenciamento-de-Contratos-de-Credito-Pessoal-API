@@ -511,7 +511,7 @@ O GCCP-API gerencia dados de contrato de crédito pessoal, como os dados do cont
 
 
 ## Testes Unitários
-Os testes unitários são escritos utilizando o **Django Tests** e estão localizados no arquivo [**tests.py/**](gccp_api_rest/tests.py). Estes, visam catalogar e neutralizar erros que comprometam o funcionamento da aplicação, bem como atendam os requisitos do test case proposto. 
+Os testes unitários são escritos utilizando o **Django Tests** e estão localizados no arquivo [**tests.py**](gccp_api_rest/tests.py). Estes, visam catalogar e neutralizar erros que comprometam o funcionamento da aplicação, bem como atendam os requisitos do test case proposto. 
 
 
 ## Observações Finais
